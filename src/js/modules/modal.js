@@ -31,7 +31,7 @@ function modal (triggerModal, modalSelector, closeSelector) {
         }, time);
     }
 
-    showModalByTime('.popup', 60000);
+    // showModalByTime('.popup', 60000);
 }
 
 export default modal;
