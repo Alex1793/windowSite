@@ -14,13 +14,13 @@ function modal (triggerModal, modalSelector, closeSelector) {
 
     btnClose.addEventListener('click', (e) => {
         modal.style.display = 'none';
-        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
     })
 
     modal.addEventListener('click', (e) => {
         if(e.target === modal) {
             modal.style.display = 'none';
-            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
     })
 

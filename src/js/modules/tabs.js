@@ -26,7 +26,7 @@ function tabs (tabsContainerSelector, tabsSelector, tabsContentSelecor, activeCl
         const target = e.target;
         const tabsClass = tabsSelector.replace(/\./gi, '');
 
-        if(target || target.classList.contains(tabsClass) || target.parentNode.classList.contains(tabsClass)) {
+        if(target && (target.classList.contains(tabsClass) || target.parentNode.classList.contains(tabsClass))) {
 
             tabs.forEach((item, i) => {
                 if(target === item || item === target.parentNode) {

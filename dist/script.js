@@ -1,6 +1,55 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/modules/forms.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/forms.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function forms() {
+  const forms = document.querySelectorAll('form');
+  const messages = {
+    success: 'отправлено',
+    failed: 'ошибка',
+    loading: 'идет отправка...'
+  };
+  forms.forEach(item => {
+    binedForms(item);
+  });
+  const postData = async (url, data) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: data
+    });
+    return await res.text();
+  };
+  function binedForms(form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const statusMessage = document.createElement('div');
+      statusMessage.textContent = messages.loading;
+      form.append(statusMessage);
+      const formData = new FormData(form);
+      postData('assets/server.php', formData).then(data => {
+        console.log(data);
+        statusMessage.textContent = messages.success;
+      }).catch(() => {
+        statusMessage.textContent = messages.failed;
+      }).finally(() => {
+        setTimeout(() => {
+          statusMessage.remove();
+        }, 3000);
+      });
+    });
+  }
+}
+/* harmony default export */ __webpack_exports__["default"] = (forms);
+
+/***/ }),
+
 /***/ "./src/js/modules/modal.js":
 /*!*********************************!*\
   !*** ./src/js/modules/modal.js ***!
@@ -22,12 +71,12 @@ function modal(triggerModal, modalSelector, closeSelector) {
   });
   btnClose.addEventListener('click', e => {
     modal.style.display = 'none';
-    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   });
   modal.addEventListener('click', e => {
     if (e.target === modal) {
       modal.style.display = 'none';
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
   });
   function showModalByTime(modal, time) {
@@ -74,7 +123,7 @@ function tabs(tabsContainerSelector, tabsSelector, tabsContentSelecor, activeCla
   tabsContainer.addEventListener('click', e => {
     const target = e.target;
     const tabsClass = tabsSelector.replace(/\./gi, '');
-    if (target || target.classList.contains(tabsClass) || target.parentNode.classList.contains(tabsClass)) {
+    if (target && (target.classList.contains(tabsClass) || target.parentNode.classList.contains(tabsClass))) {
       tabs.forEach((item, i) => {
         if (target === item || item === target.parentNode) {
           hideTabsContent();
@@ -14001,6 +14050,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
+/* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
+
 
 
 
@@ -14011,6 +14062,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])('.phone_link', '.popup', '.popup .popup_close');
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
+  (0,_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])();
 });
 }();
 /******/ })()
