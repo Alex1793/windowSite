@@ -1,5 +1,12 @@
 function forms () {
-    const forms = document.querySelectorAll('form');
+    const forms = document.querySelectorAll('form'),
+          inputTel = document.querySelectorAll('[name="user_phone"]');
+        
+    inputTel.forEach(item => {
+        item.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g,"");
+        })
+    });
 
     const messages = {
         success: 'отправлено',
@@ -43,8 +50,8 @@ function forms () {
                     setTimeout(() => {
                         statusMessage.remove();
                     }, 3000)
+                    form.reset();
                 })
-
         })
     }
 }

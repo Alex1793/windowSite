@@ -10,7 +10,13 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 function forms() {
-  const forms = document.querySelectorAll('form');
+  const forms = document.querySelectorAll('form'),
+    inputTel = document.querySelectorAll('[name="user_phone"]');
+  inputTel.forEach(item => {
+    item.addEventListener('input', e => {
+      e.target.value = e.target.value.replace(/\D/g, "");
+    });
+  });
   const messages = {
     success: 'отправлено',
     failed: 'ошибка',
@@ -42,6 +48,7 @@ function forms() {
         setTimeout(() => {
           statusMessage.remove();
         }, 3000);
+        form.reset();
       });
     });
   }
