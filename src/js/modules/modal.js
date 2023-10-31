@@ -1,26 +1,39 @@
-function modal (triggerModal, modalSelector, closeSelector) {
+import clearInput from "./clearInput";
+
+function modal (triggerModal, modalSelector, closeSelector, closeClickOverlay = true) {
     const btnModal = document.querySelectorAll(triggerModal),
           modal = document.querySelector(modalSelector),
           btnClose = document.querySelector(closeSelector);
 
+    clearInput('#width');
+    clearInput('#height');
+
+    function closeModal () {
+        modal.style.display = 'none';
+        document.documentElement.style.overflow = '';
+    }
+
     btnModal.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
+
+            
+            document.querySelectorAll('[data-modal]').forEach(item => {
+                item.style.display = 'none';
+            })
 
             modal.style.display = 'block';
             document.documentElement.style.overflow = 'hidden';
         })
     })
 
-    btnClose.addEventListener('click', (e) => {
-        modal.style.display = 'none';
-        document.documentElement.style.overflow = '';
+    btnClose.addEventListener('click', () => {
+        closeModal();
     })
 
     modal.addEventListener('click', (e) => {
-        if(e.target === modal) {
-            modal.style.display = 'none';
-            document.documentElement.style.overflow = '';
+        if(e.target === modal && closeClickOverlay) {
+            closeModal();
         }
     })
 

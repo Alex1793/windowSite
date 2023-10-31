@@ -1,12 +1,9 @@
+import clearInput from "./clearInput";
+
 function forms () {
-    const forms = document.querySelectorAll('form'),
-          inputTel = document.querySelectorAll('[name="user_phone"]');
+    const forms = document.querySelectorAll('form');
         
-    inputTel.forEach(item => {
-        item.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/\D/g,"");
-        })
-    });
+    clearInput('[name="user_phone"]');
 
     const messages = {
         success: 'отправлено',
@@ -33,11 +30,11 @@ function forms () {
             e.preventDefault();
 
             const statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
             statusMessage.textContent = messages.loading;
             form.append(statusMessage)
             
             const formData = new FormData(form);
-
             postData('assets/server.php', formData)
                 .then(data => {
                     console.log(data)
@@ -49,6 +46,7 @@ function forms () {
                 .finally(() => {
                     setTimeout(() => {
                         statusMessage.remove();
+                        // closeModal();
                     }, 3000)
                     form.reset();
                 })
