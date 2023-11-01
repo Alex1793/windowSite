@@ -4,8 +4,14 @@ import './slider';
 import modal from './modules/modal';
 import tabs from './modules/tabs';
 import forms from './modules/forms';
+import changeModalState from './modules/changeModalState';
+import timer from './modules/timer';
 
 window.addEventListener('DOMContentLoaded', () => {
+
+    const modalState = {};
+    let deadline = '2023-12-10';
+
 
     modal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
     modal('.phone_link', '.popup', '.popup .popup_close');
@@ -19,6 +25,10 @@ window.addEventListener('DOMContentLoaded', () => {
     tabs('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
     tabs('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more');
 
+    forms(modalState);
 
-    forms();
+    changeModalState(modalState);
+
+    timer('.container1', deadline);;
 });
+

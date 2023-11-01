@@ -1,6 +1,6 @@
 import clearInput from "./clearInput";
 
-function forms () {
+function forms (state) {
     const forms = document.querySelectorAll('form');
         
     clearInput('[name="user_phone"]');
@@ -35,6 +35,13 @@ function forms () {
             form.append(statusMessage)
             
             const formData = new FormData(form);
+
+            if(form.getAttribute('data-calc') === 'end') {
+                for (let key in state) {
+                    formData.append(key, state[key]);
+                }
+            }
+
             postData('assets/server.php', formData)
                 .then(data => {
                     console.log(data)
