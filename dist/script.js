@@ -186,6 +186,41 @@ function modal(triggerModal, modalSelector, closeSelector) {
 
 /***/ }),
 
+/***/ "./src/js/modules/photo.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/photo.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function photo() {
+  const imgPopup = document.createElement('div'),
+    workSection = document.querySelector('.works'),
+    bigImg = document.createElement('img');
+  imgPopup.classList.add('popup');
+  workSection.appendChild(imgPopup);
+  imgPopup.style.justifyContent = 'center';
+  imgPopup.style.alignItems = 'center';
+  imgPopup.style.display = 'none';
+  imgPopup.appendChild(bigImg);
+  workSection.addEventListener('click', e => {
+    e.preventDefault();
+    let target = e.target;
+    if (target && target.classList.contains('preview')) {
+      imgPopup.style.display = 'flex';
+      const path = target.parentNode.getAttribute('href');
+      bigImg.setAttribute('src', path);
+    }
+    if (target && target.matches('div.popup')) {
+      imgPopup.style.display = 'none';
+    }
+  });
+}
+/* harmony default export */ __webpack_exports__["default"] = (photo);
+
+/***/ }),
+
 /***/ "./src/js/modules/tabs.js":
 /*!********************************!*\
   !*** ./src/js/modules/tabs.js ***!
@@ -14205,6 +14240,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/changeModalState */ "./src/js/modules/changeModalState.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_photo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/photo */ "./src/js/modules/photo.js");
+
 
 
 
@@ -14228,7 +14265,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (0,_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
   (0,_modules_changeModalState__WEBPACK_IMPORTED_MODULE_4__["default"])(modalState);
   (0,_modules_timer__WEBPACK_IMPORTED_MODULE_5__["default"])('.container1', deadline);
-  ;
+  (0,_modules_photo__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
 }();
 /******/ })()

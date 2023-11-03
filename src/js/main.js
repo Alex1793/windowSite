@@ -6,6 +6,7 @@ import tabs from './modules/tabs';
 import forms from './modules/forms';
 import changeModalState from './modules/changeModalState';
 import timer from './modules/timer';
+import photo from './modules/photo';
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -29,6 +30,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     changeModalState(modalState);
 
-    timer('.container1', deadline);;
+    timer('.container1', deadline);
+
+    photo();
 });
 
